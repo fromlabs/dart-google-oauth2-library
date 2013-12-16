@@ -42,6 +42,8 @@ class Token {
     request.onLoadEnd.listen((Event e) {
       if (request.status == 200) {
         completer.complete(request.responseText);
+      } else if (request.status == 400) {
+        completer.completeError(new Exception("Bad request. Token probably revoked!"));
       }
     });
     request.open("GET", url);
